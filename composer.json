@@ -1,6 +1,6 @@
 {
-    "name": "josiahdev/stormphp",
-    "description": "A lightweight custom MVC framework",
+    "name": "josiahdev/stormphp-installer",
+    "description": "StormPHP Installer",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -10,11 +10,16 @@
         }
     ],
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "eftec/bladeone": "^4.7"
     },
+    "bin": [
+        "stormphp"
+    ],
     "autoload": {
         "psr-4": {
             "StormMVC\\": "src/"
         }
     }
+    
 }

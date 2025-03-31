@@ -1,24 +1,19 @@
 <?php
-require_once __DIR__ . '/../app/controllers/HomeController.php';
-require_once __DIR__ . '/../app/controllers/AboutController.php';
 
-$request = trim($_SERVER['REQUEST_URI'], '/');
+require_once __DIR__ . '/router.php';
+require_once __DIR__ . '/../app/middleware/Middleware.php';
+require_once __DIR__ . '/../app/controllers/AuthController.php';
+$router = new Router();
 
-switch ($request) {
-    case '':
-    case 'home':
-        $controller = new HomeController();
-        $controller->index();
-        break;
+$router->get('', 'AuthController@showLoginForm');
+$router->post('login', 'AuthController@login');
+$router->get('register', 'AuthController@showRegisterForm');
+$router->post('register', 'AuthController@register');
 
-    case 'about':
-        $aboutController = new AboutController();
-        $aboutController->index();
-        break;
+$router->get('profile', 'AuthController@showProfile', 'Middleware::userAuth');
+$router->get('dashboard', 'AuthController@showDashboard', 'Middleware::userAuth');
 
-    default:
-        http_response_code(404);
-        require_once __DIR__ . '/../app/core/404.php';
-        break;
+$router->post('update', 'AuthController@update', 'Middleware::userAuth');
+$router->post('delete', 'AuthController@delete', 'Middleware::userAuth');
 
-}
+$router->get('logout', 'AuthController@logout', 'Middleware::userAuth');

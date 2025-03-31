@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 $command = $argv[1] ?? null;
@@ -5,31 +6,31 @@ $name = $argv[2] ?? null;
 
 switch ($command) {
     case 'serve':
-        echo "🚀 Starting MVC server at http://127.0.0.1:8000\n";
+        echo "🚀 Starting StormPHP server at http://127.0.0.1:8000\n";
         exec("php -S 127.0.0.1:8000 -t public");
         break;
 
-    case 'make:controller':
+    case 'create:controller':
         if (!$name) {
-            echo "❌ Please specify a controller name. Example: php mvc make:controller HomeController\n";
+            echo "❌ Please specify a controller name. Example: php stormphp create:controller HomeController\n";
             exit;
         }
         createFile("app/controllers/$name.php", getControllerTemplate($name));
         echo "✅ Controller '$name' created successfully!\n";
         break;
 
-    case 'make:model':
+    case 'create:model':
         if (!$name) {
-            echo "❌ Please specify a model name. Example: php mvc make:model User\n";
+            echo "❌ Please specify a model name. Example: php stormphp create:model User\n";
             exit;
         }
         createFile("app/models/$name.php", getModelTemplate($name));
         echo "✅ Model '$name' created successfully!\n";
         break;
 
-    case 'make:view':
+    case 'create:view':
         if (!$name) {
-            echo "❌ Please specify a view name. Example: php mvc make:view home\n";
+            echo "❌ Please specify a view name. Example: php stormphp create:view home\n";
             exit;
         }
         createFile("views/$name.php", getViewTemplate($name));
@@ -39,10 +40,10 @@ switch ($command) {
     default:
         echo "❌ Unknown command.\n";
         echo "Available commands:\n";
-        echo "  php mvc serve                - Start the development server\n";
-        echo "  php mvc make:controller Name - Create a new controller\n";
-        echo "  php mvc make:model Name      - Create a new model\n";
-        echo "  php mvc make:view Name       - Create a new view\n";
+        echo "  php stormphp serve                - Start the development server\n";
+        echo "  php stormphp create:controller Name - Create a new controller\n";
+        echo "  php stormphp create:model Name      - Create a new model\n";
+        echo "  php stormphp create:view Name       - Create a new view\n";
         break;
 }
 

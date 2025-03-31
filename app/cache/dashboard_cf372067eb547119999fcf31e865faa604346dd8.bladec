@@ -1,0 +1,49 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('title', 'Dashboard'); ?>
+
+<?php $this->startSection('content'); ?>
+ <div class="container">
+ <h2 class="my-4 text-center">Welcome to your Dashboard</h2>
+
+ <div class="card">
+ <div class="card-body">
+ <h5 class="card-title">Name: <?php echo \htmlentities($user['name']??'', ENT_QUOTES, 'UTF-8', false); ?></h5>
+ <p class="card-text">Email: <?php echo \htmlentities($user['email']??'', ENT_QUOTES, 'UTF-8', false); ?></p>
+ <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateModal">Edit Profile</button>
+ <a href="/logout" class="btn btn-danger">Logout</a>
+ </div>
+ </div>
+
+ <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h5 class="modal-title" id="updateModalLabel">Update Profile</h5>
+ <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+ </div>
+ <form action="/update" method="POST">
+ <div class="modal-body">
+ <div class="mb-3">
+ <label for="name" class="form-label">Name</label>
+ <input type="text" class="form-control" id="name" name="name" value="<?php echo \htmlentities($user['name']??'', ENT_QUOTES, 'UTF-8', false); ?>"
+ required>
+ </div>
+ <div class="mb-3">
+ <label for="email" class="form-label">Email</label>
+ <input type="email" class="form-control" id="email" name="email"
+ value="<?php echo \htmlentities($user['email']??'', ENT_QUOTES, 'UTF-8', false); ?>" required>
+ </div>
+ <input type="hidden" name="id" value="<?php echo \htmlentities($user['id']??'', ENT_QUOTES, 'UTF-8', false); ?>">
+ </div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+ <button type="submit" class="btn btn-primary">Update</button>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.main'); } ?>
