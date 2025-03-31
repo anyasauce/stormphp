@@ -18,7 +18,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "StormMVC\\": "src/"
+            "StormMVC\\": "src/",
+            "App\\": "app/"
         }
     }
     

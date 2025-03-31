@@ -9,7 +9,7 @@ class Blade
     public static function getInstance()
     {
         if (!self::$instance) {
-            $views = [__DIR__ . '/../views', __DIR__ . '/'];
+            $views = __DIR__ . '/../views';
             $cache = __DIR__ . '/../cache';
 
             if (!is_dir($cache)) {

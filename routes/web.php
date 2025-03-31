@@ -3,6 +3,7 @@
 require_once __DIR__ . '/router.php';
 require_once __DIR__ . '/../app/middleware/Middleware.php';
 require_once __DIR__ . '/../app/controllers/AuthController.php';
+
 $router = new Router();
 
 $router->get('', 'AuthController@showLoginForm');
