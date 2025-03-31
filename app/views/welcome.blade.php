@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to StormPHP</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #10b981;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-container {
+            z-index: 10;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .custom-logo {
+            max-width: 150px;
+            filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .custom-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 170px;
+            height: 170px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(15, 23, 42, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero-section h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            background: linear-gradient(135deg, #6366f1 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+            border: none;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+            padding: 10px 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 10px 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transform: translateY(-3px);
+        }
+
+        .version-badge {
+            background-color: var(--card-bg);
+            color: var(--secondary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            background-color: var(--primary-color);
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            left: -100px;
+            filter: blur(80px);
+        }
+
+        .shape-2 {
+            background-color: var(--secondary-color);
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            right: -50px;
+            filter: blur(60px);
+        }
+
+        .shape-3 {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            width: 200px;
+            height: 200px;
+            bottom: 30%;
+            left: 10%;
+            filter: blur(50px);
+        }
+
+        .feature-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .feature-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .feature-icon i {
+            font-size: 1.5rem;
+            margin-bottom: 0.4rem;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="version-badge">
+                <i class="fas fa-bolt"></i> StormPHP 1.0
+            </div>
+            
+            <div class="logo-wrapper">
+                <img src="/assets/images/stormphplogo.png" alt="StormPHP Logo" class="custom-logo">
+                <div class="glow"></div>
+            </div>
+            
+            <h1>Welcome to StormPHP</h1>
+            <p>A lightning-fast PHP framework built on Laravel 12 for developers who demand exceptional performance and elegant solutions.</p>
+            
+            <div>
+                <a href="/" class="btn btn-primary btn-lg">
+                    <i class="fas fa-rocket me-2"></i> Get Started
+                </a>
+                <a href="/" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-book me-2"></i> Documentation
+                </a>
+            </div>
+            
+            <div class="feature-icons">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                    <span>Lightning Fast</span>
+                </div>
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure</span>
+                </div>
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                    <span>Modern Syntax</span>
+                </div>
+                <div class="feature-icon">
+                    <i class="fas fa-plug"></i>
+                    <span>Extensible</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

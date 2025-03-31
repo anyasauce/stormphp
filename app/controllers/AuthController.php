@@ -5,6 +5,10 @@ require_once __DIR__ . '/../core/Blade.php';
 
 class AuthController extends Controller
 {
+    public function showWelcome()
+    {
+        Blade::render('welcome');
+    }
     public function showRegisterForm()
     {
         Blade::render('register');
