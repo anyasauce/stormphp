@@ -3,6 +3,17 @@ require_once __DIR__ . '/../core/Model.php';
 
 class User extends Model
 {
+    public function getAllUsers()
+    {
+        $result = $this->db->query("SELECT * FROM users");
+        $users = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $users[] = $row;
+        }
+
+        return $users;
+    }
     public static function register($name, $email)
     {
         $db = new Database();

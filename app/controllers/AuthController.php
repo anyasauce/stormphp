@@ -41,7 +41,14 @@ class AuthController extends Controller
 
     public function showDashboard()
     {
-        Blade::render('dashboard', ['user' => $_SESSION['user']]);
+        $userModel = new User();
+
+        $users = $userModel->getAllUsers();
+
+        Blade::render('dashboard', [
+            'user' => $_SESSION['user'],
+            'users' => $users
+        ]);
     }
 
     public function login()

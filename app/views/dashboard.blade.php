@@ -7,15 +7,25 @@
         <h2 class="my-4 text-center">Welcome to your Dashboard</h2>
 
         <div class="card">
+            <h2 class="mb-3 card-header" >User's Credentials</h2>
             <div class="card-body">
                 <h5 class="card-title">Name: {{ $user['name'] }}</h5>
                 <p class="card-text">Email: {{ $user['email'] }}</p>
                 <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateModal">Edit Profile</button>
                 <a href="/logout" class="btn btn-danger">Logout</a>
-                <!-- Button to trigger delete modal -->
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Account</button>
             </div>
         </div>
+
+        <h2 class="py-3 ">Registered Users</h2>
+        <?php foreach ($users as $user): ?>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Name: {{ $user['name'] }}</h5>
+                    <p class="card-text">Email: {{ $user['email'] }}</p>
+                </div>
+            </div>
+        <?php endforeach; ?>
 
         <!-- Update Profile Modal -->
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
