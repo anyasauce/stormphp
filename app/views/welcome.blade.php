@@ -4,7 +4,7 @@
     <section class="hero-section">
         <div class="hero-container">
             <div class="version-badge">
-                <i class="fas fa-bolt"></i> StormPHP 1.0
+                <i class="fas fa-bolt"></i> StormPHP 2.0
             </div>
             
             <div class="logo-wrapper">
@@ -13,7 +13,7 @@
             </div>
             
             <h1>Welcome to StormPHP</h1>
-            <p>A lightning-fast PHP framework built on Laravel 12 for developers who demand exceptional performance and elegant solutions.</p>
+            <p>A lightning-fast PHP framework built on StormPHP 2.0 for developers who demand exceptional performance and elegant solutions.</p>
             
             <div>
                 <a href="/register" class="btn btn-primary btn-lg">

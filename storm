@@ -37,6 +37,16 @@ switch ($command) {
         echo "✅ View '$name' created successfully!\n";
         break;
 
+    case 'create:middleware':
+        if (!$name) {
+            echo "❌ Please specify a middleware name. Example: php stormphp create:middleware AuthMiddleware\n";
+            exit;
+        }
+        createFile("app/middleware/$name.php", getMiddlewareTemplate($name));
+        echo "✅ Middleware '$name' created successfully!\n";
+        break;
+
+
     default:
         echo "❌ Unknown command.\n";
         echo "Available commands:\n";
@@ -44,7 +54,9 @@ switch ($command) {
         echo "  php stormphp create:controller Name - Create a new controller\n";
         echo "  php stormphp create:model Name      - Create a new model\n";
         echo "  php stormphp create:view Name       - Create a new view\n";
+        echo "  php stormphp create:middleware Name - Create a new middleware\n";
         break;
+
 }
 
 function createFile($filePath, $content)
@@ -73,6 +85,54 @@ function getModelTemplate($name)
     return "<?php\n\nnamespace App\Models;\n\nuse Core\Model;\n\nclass $name extends Model\n{\n    // Add your model properties and methods here\n}\n";
 }
 
+function getMiddlewareTemplate($name)
+{
+    return "<?php\n\n/**
+ * $name Middleware Class
+ *
+ * This class contains middleware functions to handle user and admin authentication.
+ * It checks if a user is logged in and if the user has the appropriate role for access.
+ * 
+ * Methods:
+ * - userAuth(): Redirects to home if the user is not authenticated.
+ * - adminAuth(): Redirects to home if the user is not an admin.
+ *
+ * Usage:
+ * Call Middleware::userAuth() to ensure the user is authenticated.
+ * Call Middleware::adminAuth() to ensure the user is an admin.
+ *
+ * @package App\Middleware
+ */
+namespace App\Middleware;
+
+class $name
+{
+    public static function userAuth()
+    {
+        if (!isset(\$_SESSION['user'])) {
+            ?>
+            <script>
+                window.location.href = '/';
+            </script>
+            <?php
+            exit;
+        }
+    }
+
+    public static function adminAuth()
+    {
+        if (!isset(\$_SESSION['user']) || \$_SESSION['user']['role'] !== 'admin') {
+            ?>
+            <script>
+                window.location.href = '/';
+            </script>
+            <?php
+            exit;
+        }
+    }
+}
+";
+}
 
 function getViewTemplate($name)
 {

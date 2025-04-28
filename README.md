@@ -1,4 +1,4 @@
-# StormPHP
+# StormPHP Framework 2.0
 
 StormPHP is a lightweight custom MVC framework for PHP developers who want a simple yet powerful structure for building web applications.
 
@@ -37,6 +37,7 @@ php storm serve             # Start the development server
 php storm make:controller Name  # Generate a new controller
 php storm make:model Name       # Generate a new model
 php storm make:view Name        # Generate a new view
+php storm make:middleware Name   # Generate a new middleware
 ```
 
 ## 🛠 Features
