@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Middleware;
 class Middleware
 {
     public static function userAuth()

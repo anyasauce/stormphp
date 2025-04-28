@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace Core;
+
 use eftec\bladeone\BladeOne;
 
 class Blade
@@ -9,8 +10,8 @@ class Blade
     public static function getInstance()
     {
         if (!self::$instance) {
-            $views = __DIR__ . '/../views';
-            $cache = __DIR__ . '/../cache';
+            $views = dirname(__DIR__) . '/views';  // Views path
+            $cache = dirname(__DIR__) . '/cache';  // Cache path
 
             if (!is_dir($cache)) {
                 mkdir($cache, 0777, true);

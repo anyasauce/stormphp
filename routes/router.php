@@ -1,4 +1,10 @@
 <?php
+namespace App\Routes;
+
+use Core\Blade;
+
+class InvalidRouteActionException extends \Exception {}
+
 class Router
 {
     private $routes = [];
@@ -15,16 +21,31 @@ class Router
 
     public function resolve($request)
     {
-        $request = trim($request, '/');
+        $request = strtok($request, '?');
+        $request = rtrim($request, '/');
+
+        error_log("Resolving route for: " . $request);
 
         foreach ($this->routes as $route) {
+            error_log("Checking route: " . $route['route']);
+
             if ($_SERVER['REQUEST_METHOD'] === $route['method'] && $request === $route['route']) {
+                error_log("Route matched: " . $route['route']);
 
                 if ($route['middleware']) {
                     $this->handleMiddleware($route['middleware']);
                 }
 
-                list($controllerName, $methodName) = explode('@', $route['action']);
+                $action = $route['action'];
+
+                if (is_array($action)) {
+                    [$controllerName, $methodName] = $action;
+                } elseif (is_string($action)) {
+                    [$controllerName, $methodName] = explode('@', $action);
+                } else {
+                    throw new InvalidRouteActionException();
+                }
+
                 if (class_exists($controllerName)) {
                     $controller = new $controllerName();
                     if (method_exists($controller, $methodName)) {
@@ -44,10 +65,15 @@ class Router
 
     private function handleMiddleware($middleware)
     {
-        if (strpos($middleware, '::') !== false) {
-            list($class, $method) = explode('::', $middleware);
+        if (is_array($middleware)) {
+            [$class, $method] = $middleware;
             if (class_exists($class)) {
-                call_user_func([$class, $method]);
+                (new $class)->$method();
+            }
+        } elseif (is_string($middleware) && strpos($middleware, '::') !== false) {
+            [$class, $method] = explode('::', $middleware);
+            if (class_exists($class)) {
+                (new $class)->$method();
             }
         }
     }

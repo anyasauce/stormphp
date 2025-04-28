@@ -220,7 +220,7 @@
             @if ($code == 404)
                 The page you are looking for doesn't exist or has been moved.
             @else
-                {{ $message ?? 'Internal Server Error' }} <!-- Display the error message -->
+                {{ $message ?? 'Internal Server Error' }}
             @endif
         </p>
         <a href="/" class="btn btn-custom">Go Back Home</a>

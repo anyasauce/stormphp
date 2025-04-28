@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
@@ -32,9 +32,67 @@
             overflow: hidden;
         }
 
-        .container {
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-container {
+            z-index: 10;
             max-width: 800px;
-            padding: 20px;
+            padding: 0 20px;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .custom-logo {
+            max-width: 150px;
+            filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .custom-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 170px;
+            height: 170px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(15, 23, 42, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero-section h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            background: linear-gradient(135deg, #6366f1 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.5;
         }
 
         .btn-primary {
@@ -56,6 +114,37 @@
             background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
         }
 
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 10px 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transform: translateY(-3px);
+        }
+
+        .version-badge {
+            background-color: var(--card-bg);
+            color: var(--secondary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
         .background-shapes {
             position: absolute;
             top: 0;
@@ -63,7 +152,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: -1;
+            z-index: 1;
         }
 
         .shape {
@@ -99,76 +188,26 @@
             filter: blur(50px);
         }
 
-        .text-center {
-            text-align: center;
+        .feature-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--dark-bg);
-            color: var(--text-primary);
+        .feature-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
-        .card-header {
-            background-color: var(--card-bg);
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .card-body {
-            background-color: var(--card-bg);
-            color: var(--text-primary);
-        }
-
-        .btn-warning {
-            background-color: var(--primary-color);
-            border: none;
-            color: var(--text-primary);
-        }
-
-        .btn-warning:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-danger {
-            background-color: var(--secondary-color);
-            border: none;
-            color: var(--text-primary);
-        }
-
-        .btn-danger:hover {
-            background-color: var(--dark-bg);
-            color: var(--text-primary);
-        }
-
-        .modal-content {
-            background-color: var(--card-bg);
-            color: var(--text-primary);
-            border: 1px solid var(--dark-bg);
-        }
-
-        .modal-header {
-            background-color: var(--card-bg);
-            color: var(--text-primary);
-        }
-
-        .modal-footer {
-            background-color: var(--card-bg);
-            color: var(--text-primary);
-        }
-
-        .btn-close {
-            color: var(--text-primary);
-        }
-
-        .form-control {
-            background-color: var(--card-bg);
-            color: var(--text-primary);
-            border: 1px solid var(--dark-bg);
-        }
-
-        .form-label {
-            color: var(--text-primary);
+        .feature-icon i {
+            font-size: 1.5rem;
+            margin-bottom: 0.4rem;
+            color: var(--primary-color);
         }
     </style>
 </head>
@@ -180,10 +219,9 @@
         <div class="shape shape-3"></div>
     </div>
     @extends('layouts.sweetalert2')
-    <div class="container text-center mt-5">
-        @yield('content')
-    </div>
+    @yield('content')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -18,9 +18,10 @@
     ],
     "autoload": {
         "psr-4": {
-            "StormMVC\\": "src/",
-            "App\\": "app/"
+            "App\\Controllers\\": "app/controllers/",
+            "App\\Models\\": "app/models/",
+            "Core\\": "app/core/",
+            "App\\Routes\\": "routes/"
         }
     }
-    
 }

@@ -1,10 +1,12 @@
 <?php
-require_once 'Database.php';
+namespace Core;
 
-class Model {
+class Model
+{
     protected $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new Database();
     }
 }

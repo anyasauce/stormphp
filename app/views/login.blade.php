@@ -1,7 +1,5 @@
 @extends('layouts.main')
-
 @section('title', 'Login')
-
 @section('content')
     <div class="text-center" style="padding: 100px 0;">
         <div class="card shadow-lg" style="max-width: 600px; margin: 0 auto; background-color: #34495e;">
@@ -11,6 +9,10 @@
                     <div class="mb-3">
                         <label for="email" class="form-label text-white">Email address</label>
                         <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label text-white">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
                 </form>

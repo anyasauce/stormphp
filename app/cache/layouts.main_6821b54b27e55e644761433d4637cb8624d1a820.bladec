@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title><?php echo $this->yieldContent('title', 'Default Title'); ?></title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.js"></script>
+ <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css" rel="stylesheet">
+ <style>
+ :root {
+ --primary-color: #6366f1;
+ --primary-hover: #4f46e5;
+ --secondary-color: #10b981;
+ --dark-bg: #0f172a;
+ --card-bg: #1e293b;
+ --text-primary: #f8fafc;
+ --text-secondary: #94a3b8;
+ }
+
+ body {
+ background-color: var(--dark-bg);
+ color: var(--text-primary);
+ font-family: 'Poppins', sans-serif;
+ height: 100vh;
+ overflow: hidden;
+ }
+
+ .container {
+ max-width: 800px;
+ padding: 20px;
+ }
+
+ .btn-primary {
+ background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+ border: none;
+ box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+ padding: 10px 25px;
+ font-weight: 600;
+ font-size: 0.9rem;
+ border-radius: 8px;
+ transition: all 0.3s ease;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ }
+
+ .btn-primary:hover {
+ transform: translateY(-3px);
+ box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+ background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-color) 100%);
+ }
+
+ .background-shapes {
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ overflow: hidden;
+ z-index: -1;
+ }
+
+ .shape {
+ position: absolute;
+ opacity: 0.1;
+ border-radius: 50%;
+ }
+
+ .shape-1 {
+ background-color: var(--primary-color);
+ width: 400px;
+ height: 400px;
+ top: -100px;
+ left: -100px;
+ filter: blur(80px);
+ }
+
+ .shape-2 {
+ background-color: var(--secondary-color);
+ width: 300px;
+ height: 300px;
+ bottom: -50px;
+ right: -50px;
+ filter: blur(60px);
+ }
+
+ .shape-3 {
+ background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+ width: 200px;
+ height: 200px;
+ bottom: 30%;
+ left: 10%;
+ filter: blur(50px);
+ }
+
+ .text-center {
+ text-align: center;
+ }
+
+ .card {
+ background-color: var(--card-bg);
+ border: 1px solid var(--dark-bg);
+ color: var(--text-primary);
+ }
+
+ .card-header {
+ background-color: var(--card-bg);
+ color: var(--text-primary);
+ font-weight: 600;
+ }
+
+ .card-body {
+ background-color: var(--card-bg);
+ color: var(--text-primary);
+ }
+
+ .btn-warning {
+ background-color: var(--primary-color);
+ border: none;
+ color: var(--text-primary);
+ }
+
+ .btn-warning:hover {
+ background-color: var(--primary-hover);
+ }
+
+ .btn-danger {
+ background-color: var(--secondary-color);
+ border: none;
+ color: var(--text-primary);
+ }
+
+ .btn-danger:hover {
+ background-color: var(--dark-bg);
+ color: var(--text-primary);
+ }
+
+ .modal-content {
+ background-color: var(--card-bg);
+ color: var(--text-primary);
+ border: 1px solid var(--dark-bg);
+ }
+
+ .modal-header {
+ background-color: var(--card-bg);
+ color: var(--text-primary);
+ }
+
+ .modal-footer {
+ background-color: var(--card-bg);
+ color: var(--text-primary);
+ }
+
+ .btn-close {
+ color: var(--text-primary);
+ }
+
+ .form-control {
+ background-color: var(--card-bg);
+ color: var(--text-primary);
+ border: 1px solid var(--dark-bg);
+ }
+
+ .form-label {
+ color: var(--text-primary);
+ }
+ </style>
+</head>
+
+<body>
+ <div class="background-shapes">
+ <div class="shape shape-1"></div>
+ <div class="shape shape-2"></div>
+ <div class="shape shape-3"></div>
+ </div>
+ <?php $_shouldextend[2]=1; ?>
+ <div class="container text-center mt-5">
+ <?php echo $this->yieldContent('content'); ?>
+ </div>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<?php if (isset($_shouldextend[2])) { echo $this->runChild('layouts.sweetalert2'); } ?>

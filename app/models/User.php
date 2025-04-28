@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . '/../core/Model.php';
+namespace App\Models;
+
+use Core\Model;
+use Core\Database;
 
 class User extends Model
 {
@@ -14,19 +17,35 @@ class User extends Model
 
         return $users;
     }
-    public static function register($name, $email)
+
+    public static function register($name, $email, $password)
     {
         $db = new Database();
         $conn = $db->getConn();
 
-        $query = "INSERT INTO users (name, email) VALUES (?, ?)";
+        $query = "SELECT * FROM users WHERE email = ?";
         $stmt = $conn->prepare($query);
 
         if ($stmt === false) {
             return ['error' => $conn->error];
         }
 
-        $stmt->bind_param("ss", $name, $email);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return ['error' => 'This email is already registered.'];
+        }
+
+        $query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($query);
+
+        if ($stmt === false) {
+            return ['error' => $conn->error];
+        }
+
+        $stmt->bind_param("sss", $name, $email, $password);
 
         if ($stmt->execute()) {
             return ['success' => true];
@@ -60,19 +79,31 @@ class User extends Model
         return ['error' => 'No user found with this email.'];
     }
 
-    public static function update($id, $name, $email)
+    public static function update($id, $name, $email, $password = null)
     {
         $db = new Database();
         $conn = $db->getConn();
 
-        $query = "UPDATE users SET name = ?, email = ? WHERE id = ?";
-        $stmt = $conn->prepare($query);
+        if ($password) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $query = "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?";
+            $stmt = $conn->prepare($query);
 
-        if ($stmt === false) {
-            return ['error' => $conn->error];
+            if ($stmt === false) {
+                return ['error' => $conn->error];
+            }
+
+            $stmt->bind_param("sssi", $name, $email, $hashedPassword, $id);
+        } else {
+            $query = "UPDATE users SET name = ?, email = ? WHERE id = ?";
+            $stmt = $conn->prepare($query);
+
+            if ($stmt === false) {
+                return ['error' => $conn->error];
+            }
+
+            $stmt->bind_param("ssi", $name, $email, $id);
         }
-
-        $stmt->bind_param("ssi", $name, $email, $id);
 
         if ($stmt->execute()) {
             return ['success' => true];
@@ -80,6 +111,7 @@ class User extends Model
 
         return ['error' => 'An error occurred while updating the user.'];
     }
+
 
     public static function delete($id)
     {
@@ -101,5 +133,4 @@ class User extends Model
 
         return ['error' => 'An error occurred while deleting the user.'];
     }
-
 }

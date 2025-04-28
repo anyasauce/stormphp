@@ -1,7 +1,9 @@
 <?php
-require_once __DIR__ . '/../core/Controller.php';
-require_once __DIR__ . '/../models/User.php';
-require_once __DIR__ . '/../core/Blade.php';
+namespace App\Controllers;
+
+use Core\Controller;
+use App\Models\User;
+use Core\Blade;
 
 class AuthController extends Controller
 {
@@ -9,6 +11,7 @@ class AuthController extends Controller
     {
         Blade::render('welcome');
     }
+
     public function showRegisterForm()
     {
         Blade::render('register');
@@ -18,19 +21,20 @@ class AuthController extends Controller
     {
         $name = $_POST['name'] ?? '';
         $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $result = User::register($name, $email);
+        $result = User::register($name, $email, $hashedPassword);
 
         if (isset($result['success']) && $result['success']) {
-            ?>
-            <script>
-                alert('Registration successful!');
-                window.location.href = '/register';
-            </script>
-            <?php
-        } else {
-            echo $result['error'];
+            $_SESSION['success'] = 'Registration successful!';
+            header('Location: /login');
+            exit;
         }
+
+        $_SESSION['error'] = $result['error'];
+        header('Location: /register');
+        exit;
     }
 
     public function showLoginForm()
@@ -46,7 +50,6 @@ class AuthController extends Controller
     public function showDashboard()
     {
         $userModel = new User();
-
         $users = $userModel->getAllUsers();
 
         Blade::render('dashboard', [
@@ -58,25 +61,27 @@ class AuthController extends Controller
     public function login()
     {
         $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
 
         $result = User::login($email);
 
         if (isset($result['success']) && $result['success']) {
-            $_SESSION['user'] = $result['user'];
+            $user = $result['user'];
 
-            ?>
-            <script>
-                alert('Login successful!');
-                window.location.href = '/dashboard';
-            </script>
-            <?php
+            if (password_verify($password, $user['password'])) {
+                $_SESSION['user'] = $user;
+                $_SESSION['success'] = 'Welcome User!';
+                header('Location: /dashboard');
+                exit;
+            } else {
+                $_SESSION['error'] = 'Incorrect password.';
+                header('Location: /login');
+                exit;
+            }
         } else {
-            ?>
-            <script>
-                alert('<?= $result['error']; ?>');
-                window.location.href = '/';
-            </script>
-            <?php
+            $_SESSION['error'] = $result['error'];
+            header('Location: /login');
+            exit;
         }
     }
 
@@ -85,26 +90,28 @@ class AuthController extends Controller
         $id = $_POST['id'] ?? '';
         $name = $_POST['name'] ?? '';
         $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
 
         if (empty($id) || empty($name) || empty($email)) {
-            echo "Please fill all fields.";
-            return;
+            $_SESSION['error'] = 'Please fill all fields.';
+            header('Location: /dashboard');
+            exit;
         }
 
-        $result = User::update($id, $name, $email);
+        $hashedPassword = !empty($password) ? password_hash($password, PASSWORD_DEFAULT) : null;
+
+        $result = User::update($id, $name, $email, $hashedPassword);
 
         if (isset($result['success']) && $result['success']) {
             $_SESSION['user']['name'] = $name;
             $_SESSION['user']['email'] = $email;
-
-            ?>
-            <script>
-                alert('Profile updated successfully!');
-                window.location.href = '/dashboard';
-            </script>
-            <?php
+            $_SESSION['success'] = 'User updated successfully.';
+            header('Location: /dashboard');
+            exit;
         } else {
-            echo $result['error'];
+            $_SESSION['error'] = $result['error'];
+            header('Location: /dashboard');
+            exit;
         }
     }
 
@@ -113,33 +120,30 @@ class AuthController extends Controller
         $id = $_POST['id'] ?? '';
 
         if (empty($id)) {
-            echo "Please provide the user ID.";
-            return;
+            $_SESSION['error'] = 'Please provide the user ID.';
+            header('Location: /dashboard');
+            exit;
         }
 
         $result = User::delete($id);
 
         if (isset($result['success']) && $result['success']) {
             session_destroy();
-            ?>
-            <script>
-                window.location.href = '/';
-            </script>
-            <?php
+            $_SESSION['success'] = 'User deleted successfully.';
+            header('Location: /');
             exit;
         } else {
-            echo $result['error'];
+            $_SESSION['error'] = $result['error'];
+            header('Location: /dashboard');
+            exit;
         }
     }
 
     public function logout()
     {
         session_destroy();
-        ?>
-        <script>
-            window.location.href = '/';
-        </script>
-        <?php
+        $_SESSION['success'] = 'You have been logged out.';
+        header('Location: /login');
         exit;
     }
 }

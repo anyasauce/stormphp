@@ -11,9 +11,15 @@ class ComposerStaticInitdffcc1bed61386063fe934895377be49
         array (
             'eftec\\bladeone\\' => 15,
         ),
-        'S' => 
+        'C' => 
         array (
-            'StormMVC\\' => 9,
+            'Core\\' => 5,
+        ),
+        'A' => 
+        array (
+            'App\\Routes\\' => 11,
+            'App\\Models\\' => 11,
+            'App\\Controllers\\' => 16,
         ),
     );
 
@@ -22,9 +28,21 @@ class ComposerStaticInitdffcc1bed61386063fe934895377be49
         array (
             0 => __DIR__ . '/..' . '/eftec/bladeone/lib',
         ),
-        'StormMVC\\' => 
+        'Core\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/app/core',
+        ),
+        'App\\Routes\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/routes',
+        ),
+        'App\\Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/models',
+        ),
+        'App\\Controllers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/controllers',
         ),
     );
 

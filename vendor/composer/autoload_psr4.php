@@ -7,5 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'eftec\\bladeone\\' => array($vendorDir . '/eftec/bladeone/lib'),
-    'StormMVC\\' => array($baseDir . '/src'),
+    'Core\\' => array($baseDir . '/app/core'),
+    'App\\Routes\\' => array($baseDir . '/routes'),
+    'App\\Models\\' => array($baseDir . '/app/models'),
+    'App\\Controllers\\' => array($baseDir . '/app/controllers'),
 );

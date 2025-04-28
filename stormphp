@@ -65,13 +65,14 @@ function createFile($filePath, $content)
 
 function getControllerTemplate($name)
 {
-    return "<?php\n\nrequire_once __DIR__ . '/../core/Controller.php';\n\nclass $name extends Controller\n{\n    public function index()\n    {\n        \$this->view('" . strtolower($name) . "');\n    }\n}\n";
+    return "<?php\n\nnamespace App\Controllers;\n\nuse Core\Controller;\n\nclass $name extends Controller\n{\n    public function index()\n    {\n        // Render the view specific to this controller\n        \$this->view('" . strtolower($name) . "');\n    }\n\n    // You can define other methods here\n}\n";
 }
 
 function getModelTemplate($name)
 {
-    return "<?php\n\nclass $name\n{\n    public function __construct()\n    {\n        // Database connection can be added here\n    }\n}\n";
+    return "<?php\n\nnamespace App\Models;\n\nuse Core\Model;\n\nclass $name extends Model\n{\n    // Add your model properties and methods here\n}\n";
 }
+
 
 function getViewTemplate($name)
 {

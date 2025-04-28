@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../core/Blade.php';
+namespace Core;
 
 class Controller
 {
@@ -16,9 +16,9 @@ class Controller
 
     protected function model($model)
     {
-        if (file_exists(__DIR__ . '/../models/' . $model . '.php')) {
-            require_once __DIR__ . '/../models/' . $model . '.php';
-            return new $model();
+        $modelClass = 'App\\Models\\' . $model;
+        if (class_exists($modelClass)) {
+            return new $modelClass();
         } else {
             $this->error(500, 'Model not found');
         }

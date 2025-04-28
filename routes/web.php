@@ -1,21 +1,21 @@
 <?php
 
-require_once __DIR__ . '/router.php';
-require_once __DIR__ . '/../app/middleware/Middleware.php';
-require_once __DIR__ . '/../app/controllers/AuthController.php';
+use App\Routes\Router;
+use App\Controllers\AuthController; // 👈 IMPORT this!
+use App\Middleware\Middleware;       // 👈 IMPORT middleware if you want shorter
 
 $router = new Router();
 
-$router->get('', 'AuthController@showWelcome');
-$router->get('login', 'AuthController@showLoginForm');
-$router->post('login', 'AuthController@login');
-$router->get('register', 'AuthController@showRegisterForm');
-$router->post('register', 'AuthController@register');
+$router->get('', [AuthController::class, 'showWelcome']);
+$router->get('/login', [AuthController::class, 'showLoginForm']);
+$router->post('/login', [AuthController::class, 'login']);
+$router->get('/register', [AuthController::class, 'showRegisterForm']);
+$router->post('/register', [AuthController::class, 'register']);
 
-$router->get('profile', 'AuthController@showProfile', 'Middleware::userAuth');
-$router->get('dashboard', 'AuthController@showDashboard', 'Middleware::userAuth');
+$router->get('/profile', [AuthController::class, 'showProfile'], [Middleware::class, 'userAuth']);
+$router->get('/dashboard', [AuthController::class, 'showDashboard'], [Middleware::class, 'userAuth']);
 
-$router->post('update', 'AuthController@update', 'Middleware::userAuth');
-$router->post('delete', 'AuthController@delete', 'Middleware::userAuth');
+$router->post('/update', [AuthController::class, 'update'], [Middleware::class, 'userAuth']);
+$router->post('/delete', [AuthController::class, 'delete'], [Middleware::class, 'userAuth']);
 
-$router->get('logout', 'AuthController@logout', 'Middleware::userAuth');
+$router->get('/logout', [AuthController::class, 'logout'], [Middleware::class, 'userAuth']);
