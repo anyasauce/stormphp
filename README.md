@@ -32,7 +32,8 @@ Then, open `http://127.0.0.1:8000` in your browser.
 StormPHP includes a simple CLI tool:
 
 ```sh
-stormphp new project-name   # Create a new StormPHP project
+storm new project-name   # Create a new StormPHP project
+composer create-project josiahdev/stormphp project-name  # Or install via Composer
 php storm serve             # Start the development server
 php storm make:controller Name  # Generate a new controller
 php storm make:model Name       # Generate a new model
