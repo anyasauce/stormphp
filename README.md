@@ -13,7 +13,7 @@ composer create-project josiahdev/stormphp project-name
 Or, if you have installed the StormPHP Installer globally:
 
 ```sh
-stormphp new project-name
+storm new project-name
 ```
 
 
